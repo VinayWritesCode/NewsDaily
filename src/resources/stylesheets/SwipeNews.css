@@ -4,7 +4,6 @@
     align-items: center;
     justify-content: center;
     color: #fff;
-    
 }
 
 .img {
@@ -17,7 +16,7 @@
      display: block;
      position: absolute;
     max-width: 60vw;
-    bottom: 6vh;
+    bottom: 0;
     max-height: auto;
     font-weight: bold;
     

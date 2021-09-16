@@ -12,13 +12,11 @@ const News = (props) => {
     const [loading, setLoading] = useState(true)
     const [page, setPage] = useState(1)
     const [totalResults, setTotalResults] = useState(0)
-    const [totalPage, setTotalPage] = useState(0)
 
     const funcToCapitalizeString = (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
-    // document.title = funcToCapitalizeString(props.category + " - NewsDaily");
 
 
     const updateNews = async () => {
@@ -33,10 +31,12 @@ const News = (props) => {
         setTotalResults(ParsedData.totalResults)
         setLoading(false)
         props.setProgress(100);
+        document.title = funcToCapitalizeString(props.category + " - NewsDaily");
     }
 
     useEffect(() => {
         updateNews();
+        // eslint-disable-next-line
     }, [])
 
 
@@ -53,10 +53,10 @@ const News = (props) => {
      }*/
 
     const fetchMoreData = async () => {
-        setPage(page + 1);
         let url = `https://newsapi.org/v2/top-headlines?country=${props.country}&
-        category=${props.category}&apiKey=${props.apiKey}&page=${page}&
+        category=${props.category}&apiKey=${props.apiKey}&page=${page+1}&
         pageSize=${props.pageSize}`;
+        setPage(page + 1);
 
         let data = await fetch(url);
         let ParsedData = await data.json()
@@ -68,7 +68,7 @@ const News = (props) => {
     };
 
     return (
-        <div>
+        <div style={{marginTop: "18vh"}}>
             {loading &&
                 <div className="Spinner-loading" >
                     <Spinner />
@@ -91,11 +91,11 @@ const News = (props) => {
                         hasMore={articles.length !== totalResults}
                         loader="" >
 
-                        return <div className="container">
+                        <div className="container">
                             <div className="row">
 
                                 {articles.map(ArticleData => {
-                                    return <div className="col-md-4 col-sm my-4  d-flex justify-content-center" key={ArticleData.url}>
+                                    return <div className="col-md-4 col-sm my-4  d-flex justify-content-center" key={ArticleData.url+"gnf"}>
                                         <NewsItems Title={ArticleData.title} Description={ArticleData.description ? ArticleData.description.slice(0, 88) + "..." : ""} NewsUrl={ArticleData.url} ImageUrl={ArticleData.urlToImage} date={ArticleData.publishedAt} Author={ArticleData.author} />
                                     </div>
                                 })
