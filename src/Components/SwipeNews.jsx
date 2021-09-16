@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import ImageForNewsWithoutImage from "../resources/Images/ImageForNewsWithoutImage.png";
 import '../resources/stylesheets/SwipeNews.css';
 
-export class SwipeNews extends Component {
+const SwipeNews = (props)=>{
 
-    render() {
-        let { articleData } = this.props;
+        let { articleData } = props;
         
             let elementImage = articleData.map((elements) => {
                 if (elements.urlToImage === null){
@@ -38,7 +37,7 @@ export class SwipeNews extends Component {
         return (
             <div className="container" >
                 <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
-                    <div className="carousel-inner" onMouseOver={this.showTitle} >
+                    <div className="carousel-inner" >
 
                         <div> <div className="carousel-item active">
                             <div className="contain">
@@ -88,7 +87,6 @@ export class SwipeNews extends Component {
                 </div>
             </div>
         )
-    }
 }
 
 export default SwipeNews
