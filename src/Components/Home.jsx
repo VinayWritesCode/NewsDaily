@@ -10,8 +10,8 @@ import {
 } from "react-router-dom";
 
 export default function Home() {
-    const apiKey = process.env.REACT_APP_MY_NEWS_API;
-
+    // const apiKey = process.env.REACT_APP_MY_NEWS_API; For Hiding Api Key
+     const apiKey = 66b8146a31344297b33d607d8bb15c4f
     const [progress, setProgress] = useState(0)
     
     return (
