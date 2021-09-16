@@ -1,0 +1,41 @@
+.contain {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    
+}
+
+.img {
+    max-width: 75vw;
+    max-height: auto;
+    z-index: -1;
+}
+
+.title {
+     display: block;
+     position: absolute;
+    max-width: 60vw;
+    bottom: 6vh;
+    max-height: auto;
+    font-weight: bold;
+    
+}
+
+.title h5 {
+    font-size: 25px;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+}
+
+a:hover {
+    background-color: #000;
+    color: #fff;
+}
+

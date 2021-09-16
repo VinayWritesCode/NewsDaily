@@ -1,294 +1,138 @@
 import React, { Component } from 'react'
 import NewsItems from './NewsItems'
+import Spinner from './Spinner';
+import '../resources/stylesheets/Spinner.css';
+import PropTypes from 'prop-types';
+import SwipeNews from './SwipeNews';
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export class News extends Component {
-    articles = [
-        {
-    "source": {
-        "id": null,
-            "name": "New York Times"
-    },
-    "author": "Katy Reckdahl, Bryan Tarnowski",
-        "title": "On Grand Isle, a Fragile Spot Off Louisiana, Vast Damage - The New York Times",
-            "description": "A tiny barrier island already endangered by sea level rise was pounded by Hurricane Ida. Most buildings were significantly damaged, many irreparably.",
-                "url": "https://www.nytimes.com/2021/09/05/us/on-grand-isle-a-fragile-spot-off-louisiana-vast-damage.html",
-                    "urlToImage": "https://static01.nyt.com/images/2021/09/03/us/00GRAND-ISLE-top/merlin_193981563_cb453ae1-e71f-4225-9afb-f09c3b0fb0db-facebookJumbo.jpg",
-                        "publishedAt": "2021-09-05T10:57:47Z",
-                            "content": "After the winds died down, Mr. Raum rowed home in the kayak, fearing the worst. When he found only a little water and mud on the floor, he fell to his knees. Im so grateful that this house survived, … [+1076 chars]"
-},
-{
-    "source": {
-        "id": null,
-            "name": "BBC News"
-    },
-    "author": "https://www.facebook.com/bbcnews",
-        "title": "Afghanistan: 'Everyone got it wrong' on Taliban takeover - armed forces chief - BBC News",
-            "description": "Gen Sir Nick Carter says the speed of the Taliban's takeover of Afghanistan surprised the UK.",
-                "url": "https://www.bbc.com/news/uk-58453258",
-                    "urlToImage": "https://ichef.bbci.co.uk/news/1024/branded_news/119AE/production/_120401127_p09v3lr9.jpg",
-                        "publishedAt": "2021-09-05T10:56:06Z",
-                            "content": "By Francesca GillettBBC News\r\nmedia captionGen Sir Nick Carter says the Taliban managed to \"buy off\" opponents as it took over\r\n\"Everybody got it wrong\" on how quickly the Taliban would take over Afg… [+4401 chars]"
-},
-{
-    "source": {
-        "id": null,
-            "name": "SciTechDaily"
-    },
-    "author": null,
-        "title": "Lucky 13? Mars Ingenuity Helicopter to Get Lower for More Detailed Images During Next Flight - SciTechDaily",
-            "description": "“The longer you look back, the farther you can look forward.” –Winston Churchill Following Flight 12’s scouting images of “South Séítah,” which were the most valuable Ingenuity has taken to date, we are taking Winston’s advice for Ingenuity’s 13th flight. We …",
-                "url": "https://scitechdaily.com/lucky-13-mars-ingenuity-helicopter-to-get-lower-for-more-detailed-images-during-next-flight/",
-                    "urlToImage": "https://scitechdaily.com/images/NASA-Ingenuity-Mars-Helicopter-Above.gif",
-                        "publishedAt": "2021-09-05T10:42:01Z",
-                            "content": "ByTeddy Tzanetos, JPLSeptember 5, 2021\r\nAnimation of NASA Ingenuity Mars Helicopter from above. Credit: NASA/JPL-Caltech\r\n“The longer you look back, the farther you can look forward.” –Winston Church… [+3377 chars]"
-},
-{
-    "source": {
-        "id": "reuters",
-            "name": "Reuters"
-    },
-    "author": "Lisa Baertlein",
-        "title": "Each COVID-19 surge poses a risk for healthcare workers: PTSD - Reuters",
-            "description": "Nurse Chris Prott's knees jump, his heart races, his mouth goes dry and his mind floods with dark memories when he talks about working in the Milwaukee VA Medical Center's intensive care unit (ICU) during <a href=\"https://www.reuters.com/business/healthcare-p…",
-                "url": "https://www.reuters.com/business/healthcare-pharmaceuticals/each-covid-19-surge-poses-risk-healthcare-workers-ptsd-2021-09-05/",
-                    "urlToImage": "https://www.reuters.com/resizer/SmT1Pvm1lnSQSVruuFI-7pn9Uuk=/1200x628/smart/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/SK5WKDJ7QFIMDCTNBDUA6C4KFE.jpg",
-                        "publishedAt": "2021-09-05T10:25:00Z",
-                            "content": "Sept 5 (Reuters) - Nurse Chris Prott's knees jump, his heart races, his mouth goes dry and his mind floods with dark memories when he talks about working in the Milwaukee VA Medical Center's intensiv… [+5232 chars]"
-},
-{
-    "source": {
-        "id": null,
-            "name": "New York Times"
-    },
-    "author": "Mark Landler",
-        "title": "The First Afghan Rhodes Scholar Saved Her Father, and Wants to Do More - The New York Times",
-            "description": "Summia Tora used her connections to get her father and an uncle on a flight out of Kabul. Helping other Afghan refugees, she said, may occupy “most of the rest of my life.”",
-                "url": "https://www.nytimes.com/2021/09/05/world/middleeast/afghan-rhodes-scholar.html",
-                    "urlToImage": "https://static01.nyt.com/images/2021/09/05/world/05Afghan-Rhodes/05Afghan-Rhodes-facebookJumbo.jpg",
-                        "publishedAt": "2021-09-05T10:01:47Z",
-                            "content": "OXFORD, England Five days after the Taliban captured Kabul, Summia Tora began to fear that her father would never get out of Afghanistan. She had been up almost round-the-clock, working every angle t… [+1174 chars]"
-},
-{
-    "source": {
-        "id": "the-wall-street-journal",
-            "name": "The Wall Street Journal"
-    },
-    "author": "Yoree Koh",
-        "title": "Child Covid-19 Cases Rise in States Where Schools Opened Earliest - The Wall Street Journal",
-            "description": "Number of infections climbed in states where school has been in session for weeks; thousands of students see closures and quarantines",
-                "url": "https://www.wsj.com/articles/child-covid-19-cases-rise-in-states-where-schools-opened-earliest-11630834201",
-                    "urlToImage": "https://images.wsj.net/im-396155/social",
-                        "publishedAt": "2021-09-05T09:30:00Z",
-                            "content": "The recent spread of the highly contagious Delta variant has thrown back-to-school plans into disarray, temporarily driving tens of thousands of students back to virtual learning or pausing instructi… [+277 chars]"
-},
-{
-    "source": {
-        "id": null,
-            "name": "New York Times"
-    },
-    "author": "Muktita Suhartono, Hannah Beech",
-        "title": "Thailand Covid Failures Spur Angry New Protests - The New York Times",
-            "description": "With more than 12,000 dead, few vaccinated and the economy in shambles, demonstrations against the authorities have become a daily event.",
-                "url": "https://www.nytimes.com/2021/09/05/world/asia/thailand-protesters-covid.html",
-                    "urlToImage": "https://static01.nyt.com/images/2021/09/03/world/00virus-thailand-1/00virus-thailand-1-facebookJumbo.jpg",
-                        "publishedAt": "2021-09-05T09:15:16Z",
-                            "content": "Anger is spreading, and not only in the streets. Opposition lawmakers in Parliament tried to pass a vote of no confidence in Mr. Prayuth, accusing his government of squandering the monthslong head st… [+1301 chars]"
-},
-{
-    "source": {
-        "id": null,
-            "name": "Fox Business"
-    },
-    "author": "Associated Press",
-        "title": "Cleanup boats on scene of large Gulf oil spill following Ida - Fox Business",
-            "description": "",
-                "url": "https://www.foxbusiness.com/markets/cleanup-boats-on-scene-of-large-gulf-oil-spill-following-ida",
-                    "urlToImage": "https://a57.foxnews.com/static.foxbusiness.com/foxbusiness.com/content/uploads/2021/09/0/0/IdaSpillA.jpg?ve=1&tl=1",
-                        "publishedAt": "2021-09-05T08:52:02Z",
-                            "content": "The U.S. Coast Guard said Saturday that cleanup crews are responding to a sizable oil spill in the Gulf of Mexico following Hurricane Ida.\r\nThe spill, which is ongoing, appears to be coming from a so… [+4685 chars]"
-},
-{
-    "source": {
-        "id": "nbc-news",
-            "name": "NBC News"
-    },
-    "author": "Phil McCausland",
-        "title": "Religious exemptions to vaccine mandates could test 'sincerely held beliefs' - NBC News",
-            "description": "In legal battles over religious exemptions, it could come down to proving whether the person attempting to obtain one has “sincerely held beliefs” against the Covid vaccine.",
-                "url": "https://www.nbcnews.com/news/us-news/religious-exemptions-vaccine-mandates-could-test-sincerely-held-beliefs-n1278514",
-                    "urlToImage": "https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/newscms/2021_34/3502022/210827-vaccine-protest-mb-1952.jpg",
-                        "publishedAt": "2021-09-05T08:30:17Z",
-                            "content": "Religious exemptions could prove to be the latest legal battlefield of the pandemic, as Americans opposed to the coronavirus vaccine attempt to find ways around employer and government vaccine mandat… [+9522 chars]"
-},
-{
-    "source": {
-        "id": null,
-            "name": "TMZ"
-    },
-    "author": "TMZ Staff",
-        "title": "Lil Uzi Vert Says Forehead Diamond Got Ripped Out by Fans During Rolling Loud - TMZ",
-            "description": "Lil Uzi Vert explains what happened to his $24 million forehead diamond.",
-                "url": "https://www.tmz.com/2021/09/05/lil-uzi-vert-pink-forehead-diamond-ripped-out-rolling-loud/",
-                    "urlToImage": "https://imagez.tmz.com/image/5f/16by9/2021/08/31/5fe47c40e4704ca3921a541f30a19f50_xl.jpg",
-                        "publishedAt": "2021-09-05T08:00:00Z",
-                            "content": "Lil Uzi Vert says the large pink diamond he had implanted in his forehead got dislodged when he jumped into the crowd at Rolling Loud, but thankfully ... fiasco aVERTed.\r\nThe rapper says he had a $24… [+906 chars]"
-},
-{
-    "source": {
-        "id": "cnn",
-            "name": "CNN"
-    },
-    "author": "Travis Caldwell, CNN",
-        "title": "'Surprised and disappointed.' Doctors in Covid-19 hotspots last year are seeing new record hospitalizations - CNN",
-            "description": "With the more contagious Delta variant of Covid-19 sweeping across the country this summer, health care workers and officials are finding themselves returning to a crisis experienced last year when hospitals struggled to handle an influx of patients.",
-                "url": "https://www.cnn.com/2021/09/05/health/us-coronavirus-sunday/index.html",
-                    "urlToImage": "https://cdn.cnn.com/cnnnext/dam/assets/210904235301-georgia-hospital-0831-super-tease.jpg",
-                        "publishedAt": "2021-09-05T07:46:00Z",
-                            "content": "(CNN)With the more contagious Delta variant of Covid-19 sweeping across the country this summer, health care workers and officials are finding themselves returning to a crisis experienced last year w… [+6773 chars]"
-},
-{
-    "source": {
-        "id": null,
-            "name": "247Sports"
-    },
-    "author": "Billy Embody",
-        "title": "Everything Ed Orgeron said after LSU's loss to UCLA - 247Sports",
-            "description": "What'd Coach O say after LSU's loss to UCLA?",
-                "url": "https://247sports.com/college/lsu/Article/Ed-Orgeron-said-after-LSU-loss-to-UCLA-press-conference-170301972/",
-                    "urlToImage": "https://s3media.247sports.com/Uploads/Assets/619/576/10576619.jpg?fit=bounds&crop=1200:630,offset-y0.50&width=1200&height=630",
-                        "publishedAt": "2021-09-05T05:46:14Z",
-                            "content": "LSU head coach Ed Orgeron met with the media after the loss to UCLA. Here's everything Orgeron said about the loss, what's next for the Tigers and where things went wrong.\r\nOpening statement: \"We did… [+4533 chars]"
-},
-{
-    "source": {
-        "id": null,
-            "name": "CBS Sports"
-    },
-    "author": "",
-        "title": "College football shockers: Montana makes history upsetting No. 20 Washington, six FCS teams beat FBS opponents - CBS Sports",
-            "description": "The Grizzlies are the first FCS team since 2016 to beat a team ranked in the AP Top 25",
-                "url": "https://www.cbssports.com/college-football/news/college-football-shockers-montana-makes-history-upsetting-no-20-washington-six-fcs-teams-beat-fbs-opponents/",
-                    "urlToImage": "https://sportshub.cbsistatic.com/i/r/2021/09/05/7f9399b7-84db-4c44-8462-9dab05c3b3e7/thumbnail/1200x675/89b14ed6a0dd5940e1fb1bbbbbf86f71/montana.jpg",
-                        "publishedAt": "2021-09-05T04:25:00Z",
-                            "content": "All longtime college football fans remember where they were when a plucky FCS (formerly Division I-AA) squad called Appalachian State walked into the Big House at Michigan and became the first team f… [+1728 chars]"
-},
-{
-    "source": {
-        "id": null,
-            "name": "KUTV 2News"
-    },
-    "author": "Kelly Vaughen, KUTV",
-        "title": "Identities released of 3 people found dead after Millcreek standoff - KUTV 2News",
-            "description": "Unified police have identified three people they found dead inside a Millcreek home after a nearly day-long standoff with officials. The victims are Bonne Rachelle Brady, 54, and Timothy Andrew LeGrande, 53. The third deceased person they found was the suspec…",
-                "url": "https://kutv.com/news/local/police-identify-3-dead-after-swat-standoff-in-millcreek",
-                    "urlToImage": "https://static-27.sinclairstoryline.com/resources/media/d04882a5-e82b-4b6d-907e-5a27654b3476-large16x9_thumb_80216.png?1630814280459",
-                        "publishedAt": "2021-09-05T04:21:02Z",
-                            "content": null
-},
-{
-    "source": {
-        "id": "cnn",
-            "name": "CNN"
-    },
-    "author": "Natasha Bertrand, Katie Bo Williams and Zachary Cohen, CNN",
-        "title": "Biden promised ISIS-K will 'pay.' Having no US troops in Afghanistan makes that harder - CNN",
-            "description": "As the Biden administration grapples with the challenge of carrying out counterterrorism missions in Afghanistan without US boots on the ground, CNN has learned new details about last Sunday's drone strike on suspected ISIS-K fighters in Kabul that some offic…",
-                "url": "https://www.cnn.com/2021/09/05/politics/afghanistan-counterterrorism-challenges/index.html",
-                    "urlToImage": "https://cdn.cnn.com/cnnnext/dam/assets/210831154223-02-biden-afghanistan-presser-0831-super-tease.jpg",
-                        "publishedAt": "2021-09-05T04:04:00Z",
-                            "content": "Washington (CNN)As the Biden administration grapples with the challenge of carrying out counterterrorism missions in Afghanistan without US boots on the ground, CNN has learned new details about last… [+9856 chars]"
-},
-{
-    "source": {
-        "id": "google-news",
-            "name": "Google News"
-    },
-    "author": null,
-        "title": "Georgia Bulldogs vs. Clemson Tigers | Full Game Highlights - ESPN College Football",
-            "description": null,
-                "url": "https://news.google.com/__i/rss/rd/articles/CBMiK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9RHdvb2RETjl4TkHSAQA?oc=5",
-                    "urlToImage": null,
-                        "publishedAt": "2021-09-05T03:27:56Z",
-                            "content": null
-},
-{
-    "source": {
-        "id": "axios",
-            "name": "Axios"
-    },
-    "author": "Rebecca Falconer",
-        "title": "New Zealand to criminalize terror attack planning after mall stabbing - Axios",
-            "description": "Prime Minister Jacinda Ardern vowed to tighten New Zealand's security laws by the month's end.",
-                "url": "https://www.axios.com/new-zealand-criminalize-attack-planning-mall-stabbing-803b1c4d-35fe-4d77-9eab-4a5a0c6da725.html",
-                    "urlToImage": "https://images.axios.com/5IU06x7UM3rliEYuPSi6sjX8uUc=/0x87:5194x3009/1366x768/2021/09/05/1630808309302.jpg",
-                        "publishedAt": "2021-09-05T03:26:27Z",
-                            "content": "New Zealand officials tried \"for years\" to deport the terrorist who stabbed shoppers in an Auckland supermarket Friday before being fatally shot by police who were surveilling him, Prime Minister Jac… [+1773 chars]"
-},
-{
-    "source": {
-        "id": "nbc-news",
-            "name": "NBC News"
-    },
-    "author": "Dennis Romero",
-        "title": "Seven Louisiana nursing homes ordered closed for evacuating patients to warehouse before Hurricane Ida - NBC News",
-            "description": "Seven Louisiana nursing homes that evacuated patients to a warehouse before Hurricane Ida were ordered closed immediately Saturday.",
-                "url": "https://www.nbcnews.com/news/us-news/seven-louisiana-nursing-homes-ordered-closed-evacuating-patients-warehouse-hurricane-n1278525",
-                    "urlToImage": "https://media-cldnry.s-nbcnews.com/image/upload/t_nbcnews-fp-1200-630,f_auto,q_auto:best/newscms/2021_35/3503518/210903-new-orleans-al-0938.jpg",
-                        "publishedAt": "2021-09-05T02:59:00Z",
-                            "content": "Seven Louisiana nursing homes on Saturday were ordered to close immediately because their patients were evacuated to a single warehouse ahead of Hurricane Ida, the Louisiana Department of Health said… [+2774 chars]"
-},
-{
-    "source": {
-        "id": null,
-            "name": "NME"
-    },
-    "author": null,
-        "title": "Watch the first teaser for upcoming documentary ‘Becoming Led Zeppelin’ - NME",
-            "description": "The first teaser clip from the first-ever authorised Led Zeppelin documentary, 'Becoming Led Zeppelin', has been shared online.",
-                "url": "https://www.nme.com/news/music/watch-the-first-teaser-for-upcoming-documentary-becoming-led-zeppelin-3037155",
-                    "urlToImage": "https://www.nme.com/wp-content/uploads/2021/09/led-zeppelin-1977-credit-jeffrey-mayer@2000x1270.jpg",
-                        "publishedAt": "2021-09-05T02:20:23Z",
-                            "content": "The first teaser clip from the first-ever authorised Led Zeppelin documentary, Becoming Led Zeppelin, has been shared online, after the full film was premiered at the Venice Film Festival this weeken… [+1534 chars]"
-},
-{
-    "source": {
-        "id": "reuters",
-            "name": "Reuters"
-    },
-    "author": "Mei Mei Chu,Naveen Thukral",
-        "title": "Rats, drought and labour shortages eat into global edible oil recovery - Reuters",
-            "description": "In a sprawling oil palm plantation in the Malaysian state of Perak, watermelon seedlings are sprouting from freshly ploughed earth between palm saplings while rented cows graze in overgrown areas of the estate.",
-                "url": "https://www.reuters.com/business/rats-drought-labour-shortages-eat-into-global-edible-oil-recovery-2021-09-05/",
-                    "urlToImage": "https://www.reuters.com/resizer/oPdUcKZbkhCpUxSP1GzSGtsVUqY=/1200x628/smart/filters:quality(80)/cloudfront-us-east-2.images.arcpublishing.com/reuters/MRBKE7CQLJMCXL4SJXZLOKWQFY.jpg",
-                        "publishedAt": "2021-09-05T02:17:00Z",
-                            "content": "PERAK, Malaysia/SINGAPORE, Sept 5 (Reuters) - In a sprawling oil palm plantation in the Malaysian state of Perak, watermelon seedlings are sprouting from freshly ploughed earth between palm saplings … [+9169 chars]"
-}
-    ]
-    constructor() {
-        super();
-        console.log("Hello , This is a constructor .");
-        this.state = {
-            articles: this.articles,
-            loading: false  
-        }
+    static defaultProps = {
+        country: 'in',
+        pageSize: 9,
+        category: 'general',
     }
+
+    static propTypes = {
+        country: PropTypes.string,
+        pageSize: PropTypes.number,
+        category: PropTypes.string,
+    }
+
+    funcToCapitalizeString = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+    constructor(props) {
+        super(props);
+        this.state = {
+            articles: [],
+            loading: true,
+            page: 1,
+            totalResults: 0,
+            totalPage: 0
+        }
+
+        document.title = this.funcToCapitalizeString(this.props.category + " - NewsDaily");
+    }
+
+    async updateNews() {
+        this.props.setProgress(10);
+        const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+        this.setState({ loading: true });
+        let data = await fetch(url);
+        this.props.setProgress(30);
+        let ParsedData = await data.json()
+        this.props.setProgress(60);
+        this.setState({
+            articles: ParsedData.articles,
+            totalResults: ParsedData.totalResults,
+            loading: false
+        })
+        this.props.setProgress(100);
+    }
+
+    async componentDidMount() {
+      this.updateNews();    
+    }
+
+    /*handlePrevClick = async () => {
+        this.setState({ page: this.state.page - 1 });
+        this.updateNews()
+    }
+
+    handleNextClick = async () => {
+
+        this.setState({ page: this.state.page + 1 });
+        this.updateNews()
+
+    }*/
+
+    fetchMoreData = async () => {
+        this.setState({ page: this.state.page + 1 })
+        let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&
+        category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&
+        pageSize=${this.props.pageSize}`;
+        
+        let data = await fetch(url);
+        let ParsedData = await data.json()
+
+        this.setState({
+            articles: this.state.articles.concat(ParsedData.articles), loading: false,
+            totalResults: ParsedData.totalResults
+        })
+
+    };
+
     render() {
         return (
-            <div className="container my-4">
-                <div className="d-flex justify-content-center my-4">
-                <h2 style={{color: "#fff"}}> NewsDaily - Top Headline</h2>
-                </div>
-                <div className="row d-flex justify-content-center my-4">
-                    {this.state.articles.map( ArticleData => {
-                           return <div className="col-md-3 ms-4 ">
-                               <NewsItems Title={ArticleData.title} Description={ArticleData.description} NewsUrl={ArticleData.url} ImageUrl={ArticleData.urlToImage} />
-                            </div>
-                        })
-                    }
+            <div>
+                {this.state.loading &&
+                    <div className="Spinner-loading" >
+                        <Spinner />
+                    </div>}
+
+                <div className="container my-4 ">
+                    <div className=" my-4">
+                        <h2 style={{ color: "white", textAlign: 'center' }}> NewsDaily - Top Headlines</h2>
+                    </div>
+
+                    {!this.state.loading && <div className="row my-4" >
+                        <SwipeNews articleData={this.state.articles} />
+                        <div className="my-4">
+                            <h2 style={{ color: "white", textAlign: 'center' }}> {" Top " + this.props.category + " Headlines"}</h2>
+                        </div>
+
+                        <InfiniteScroll
+                            dataLength={this.state.articles.length }
+                            next={this.fetchMoreData}
+                            hasMore={this.state.articles.length !== this.state.totalResults }
+                            loader="" >
+
+                            return <div className="container">
+                                <div className="row">
+                                    
+                                    {this.state.articles.map(ArticleData => {
+                                        return <div className="col-md-4 col-sm my-4  d-flex justify-content-center" key={ArticleData.url}>
+                                            <NewsItems Title={ArticleData.title} Description={ArticleData.description ? ArticleData.description.slice(0, 88) + "..." : ""} NewsUrl={ArticleData.url} ImageUrl={ArticleData.urlToImage} date={ArticleData.publishedAt} Author={ArticleData.author} />
+                                        </div>
+                                        })
+                                    }
+                                </div>
+                              </div>
+        
+                        </InfiniteScroll>
+
+                    </div>}
+                    {/*
+                    // Traditional load next and previous page
+                    <div className="container d-flex justify-content-between">
+                        <button disabled={this.state.page <= 1} className="btn btn-danger" onClick={this.handlePrevClick} >Previous</button>
+                        <button disabled={this.state.page + 1 > Math.ceil(this.state.totalResults / 20)} className="btn btn-danger" onClick={this.handleNextClick}>Next</button>
+                    </div>*/}
                 </div>
             </div>
         )
     }
 }
 
-export default News
+export default News;
